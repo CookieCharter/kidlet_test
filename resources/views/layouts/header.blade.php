@@ -34,7 +34,7 @@
                                     class="total font-bold">{{ $cart ? $cart->total : '0' }}</span>
                                 RON
                             </p>
-                            <button href="{{-- {{ route('order.finish') }} --}}"
+                            <button onclick="location.href='/order/place'"
                                 class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                 <span class="button-text">Place order</span>
                             </button>
@@ -79,7 +79,7 @@
                                     class="total font-bold">{{ $cart ? $cart->total : '0' }}</span>
                                 RON
                             </p>
-                            <button href="{{-- {{ route('order.finish') }} --}}"
+                            <button onclick="location.href='/order/place'"
                                 class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                 <span class="button-text">Place order</span>
                             </button>

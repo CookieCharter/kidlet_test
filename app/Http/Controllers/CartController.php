@@ -71,4 +71,13 @@ class CartController extends Controller
         $cart->save();
         return response(['resp' => 'Deleted']);
     }
+
+    public function placeOrder()
+    {
+        $user_id = Auth::user()->id;
+        $cart = Cart::where('user_id', $user_id)->first();
+        CartItem::where('cart_id', $cart->id)->delete();
+        $cart->delete();
+        redirect()->route('index');
+    }
 }
