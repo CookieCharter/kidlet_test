@@ -46,7 +46,7 @@
                         <div class="mt-4 px-5 pb-5 grid">
                             @auth
                                 <button
-                                    class="add-to-cart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25"
+                                    class="add-to-cart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400"
                                     {{ $product->instock == true && Auth::check() ? '' : 'disabled' }}
                                     data-id={{ $product->id }}>
                                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2 h-6 w-6" fill="none"
@@ -63,7 +63,7 @@
                                 </button>
                             @else
                                 <a href="{{ route('login') }}"
-                                    class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                                    class="flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                     <span class="button-text">Login</span>
                                 </a>
                             @endauth

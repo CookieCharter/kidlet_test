@@ -8,7 +8,7 @@
             </a>
         </div>
 
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end bg-white">
             <div class="relative">
                 <button id="cart-icon" type="button"
                     class="flex items-center gap-x-1 text-sm font-semibold leading-6 text-gray-900"
@@ -23,7 +23,7 @@
                 <div
                     class="cart-flyout hidden absolute -right-0 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
                     <div class="grid grid-cols-1 p-3">
-                        <div class="cart">
+                        <div class="cart bg-white">
 
                         </div>
                     </div>
@@ -35,14 +35,14 @@
                                 RON
                             </p>
                             <button href="{{-- {{ route('order.finish') }} --}}"
-                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                 <span class="button-text">Place order</span>
                             </button>
                         @else
                             <div class="grid items-center justify-center">
                                 <p>You must log in to order</p>
                                 <a href="{{ route('login') }}"
-                                    class="rounded-md bg-slate-900 px-5 mt-3 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                                    class="rounded-md bg-slate-900 px-5 mt-3 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                     <span class="button-text">Login</span>
                                 </a>
                             </div>
@@ -80,14 +80,14 @@
                                 RON
                             </p>
                             <button href="{{-- {{ route('order.finish') }} --}}"
-                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                 <span class="button-text">Place order</span>
                             </button>
                         @else
                             <div class="grid items-center justify-center">
                                 <p>You must log in to order</p>
                                 <a href="{{ route('login') }}"
-                                    class="rounded-md bg-slate-900 px-5 mt-3 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                                    class="rounded-md bg-slate-900 px-5 mt-3 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:bg-slate-400">
                                     <span class="button-text">Login</span>
                                 </a>
                             </div>
@@ -144,8 +144,11 @@
                 beforeSend: function() {
                     $(element).children('.button-text').html('Please wait...');
                 },
+                success: function(response) {
+                    alert(response.resp)
+                },
                 complete: function(response) {
-                    $(element).children('.button-text').html('Added to cart');
+                    $(element).children('.button-text').html(response.responseJSON.resp);
                     element.attr('disabled', true);
                     $('.place-order').attr('disabled', false);
                     getCart()

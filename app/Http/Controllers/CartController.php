@@ -27,7 +27,7 @@ class CartController extends Controller
         $product = Product::find($productId);
 
         if ($product->instock != true) {
-            return response(['resp' => 'Reserved']);
+            return response()->json(['resp' => 'Reserved']);
         } else {
             $product->instock = false;
             $product->save();
@@ -51,8 +51,8 @@ class CartController extends Controller
                 $cart->total = $cart->total();
                 $cart->save();
             }
+            return response()->json(['resp' => 'Added to cart']);
         }
-        return response(['resp' => 'Added to cart']);
     }
 
     public function deleteFromCart(Request $request)
