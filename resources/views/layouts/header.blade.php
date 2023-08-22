@@ -29,13 +29,15 @@
                     </div>
                     <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700">
                     <div class="px-5 pb-5 grid">
-                        @if ($cart)
-                            <p class="text-lg my-3">Total: <span class="total font-bold">{{ $cart->total }}</span> RON
+                        @auth
+                            <p class="text-lg my-3">Total: <span
+                                    class="total font-bold">{{ $cart ? $cart->total : '0' }}</span>
+                                RON
                             </p>
-                            <a href="{{-- {{ route('order.finish') }} --}}"
-                                class="add-to-cart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                            <button href="{{-- {{ route('order.finish') }} --}}"
+                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
                                 <span class="button-text">Place order</span>
-                            </a>
+                            </button>
                         @else
                             <div class="grid items-center justify-center">
                                 <p>You must log in to order</p>
@@ -44,37 +46,9 @@
                                     <span class="button-text">Login</span>
                                 </a>
                             </div>
-                        @endif
+                        @endauth
                     </div>
                 </div>
-                <div
-                    class="cart-flyout hidden absolute -right-0 top-full z-10 mt-3 w-screen max-w-md overflow-hidden rounded-3xl bg-white shadow-lg ring-1 ring-gray-900/5">
-                    <div class="grid grid-cols-1 p-3">
-                        <div class="cart">
-
-                        </div>
-                    </div>
-                    <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700">
-                    <div class="px-5 pb-5 grid">
-                        @if ($cart)
-                            <p class="text-lg my-3">Total: <span class="total font-bold">{{ $cart->total }}</span> RON
-                            </p>
-                            <a href="{{-- {{ route('order.finish') }} --}}"
-                                class="add-to-cart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
-                                <span class="button-text">Place order</span>
-                            </a>
-                        @else
-                            <div class="grid items-center justify-center">
-                                <p>You must log in to order</p>
-                                <a href="{{ route('login') }}"
-                                    class="rounded-md bg-slate-900 px-5 mt-3 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
-                                    <span class="button-text">Login</span>
-                                </a>
-                            </div>
-                        @endif
-                    </div>
-                </div>
-
             </div>
         </div>
         {{-- Mobile --}}
@@ -99,13 +73,16 @@
                     </div>
                     <hr class="h-px my-3 bg-gray-200 border-0 dark:bg-gray-700">
                     <div class="px-5 pb-5 grid">
-                        @if ($cart)
-                            <p class="text-lg my-3">Total: <span class="total font-bold">{{ $cart->total }}</span> RON
+
+                        @auth
+                            <p class="text-lg my-3">Total: <span
+                                    class="total font-bold">{{ $cart ? $cart->total : '0' }}</span>
+                                RON
                             </p>
-                            <a href="{{-- {{ route('order.finish') }} --}}"
-                                class="add-to-cart flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
+                            <button href="{{-- {{ route('order.finish') }} --}}"
+                                class="place-order flex items-center justify-center rounded-md bg-slate-900 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-gray-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-25">
                                 <span class="button-text">Place order</span>
-                            </a>
+                            </button>
                         @else
                             <div class="grid items-center justify-center">
                                 <p>You must log in to order</p>
@@ -114,7 +91,7 @@
                                     <span class="button-text">Login</span>
                                 </a>
                             </div>
-                        @endif
+                        @endauth
                     </div>
                 </div>
                 <div
@@ -125,11 +102,12 @@
             </div>
         </div>
     </nav>
+
 </header>
 @push('scripts')
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script>
-        get()
+        getCart()
         $("body").on("click", ".delete-icon", function(event) {
             var productId = $(this).data('id');
             var element = $(this);
@@ -140,12 +118,8 @@
                     _token: '{{ csrf_token() }}',
                     product_id: productId
                 },
-                error: function(xhr) {
-                    console.log(xhr)
-                },
                 complete: function(response) {
-                    get()
-
+                    getCart()
                 }
             });
         });
@@ -173,24 +147,28 @@
                 complete: function(response) {
                     $(element).children('.button-text').html('Added to cart');
                     element.attr('disabled', true);
-                    get()
+                    $('.place-order').attr('disabled', false);
+                    getCart()
                 }
             });
         });
 
-        function get() {
+        function getCart() {
             $.ajax({
                 url: "{{ route('cart.index') }}",
                 type: 'POST',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
                 data: {
                     _token: '{{ csrf_token() }}',
+                },
+                error: function(xhr) {
+                    console.log(xhr)
                 },
                 success: function(response) {
                     $('.cart').html(response.cart)
                     $('.total').html(response.total)
+                    if (response.total == 0 || !response.total) {
+                        $('.place-order').attr('disabled', true);
+                    }
                 }
             });
         }

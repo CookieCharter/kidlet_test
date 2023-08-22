@@ -7,7 +7,7 @@
                 </a>
             </div>
             <div class="col-span-2">
-                <h5 class="text-lg tracking-tight leading-tight text-slate-900">
+                <h5 class=" tracking-tight leading-tight text-slate-900">
                     {{ $product->name }}
                 </h5>
                 <p class="text-sm font-bold text-slate-900">{{ $product->price }} <span
