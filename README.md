@@ -10,6 +10,6 @@
     <li>A 'php artisan db:seed --class=CategorySeeder' futtatása</li>
     <li>A 'php artisan db:seed --class=ProductSeeder' futtatása</li>
     <li>A 'php artisan storage:link' futtatása</li>
-    <li>A 'php artisan serve' és 'npm run dev' segítségével elindul a projekt </li>
+    <li>A 'php artisan serve', 'npm install' és 'npm run dev' segítségével elindul a projekt </li>
 </ol>
 <p>Sajnos szerver nem állt rendelkezésemre, így annak menetét nem tudom leírni.</p>
