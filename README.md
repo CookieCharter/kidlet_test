@@ -7,7 +7,8 @@
     <li>A 'composer install' futtatása</li>
     <li>A 'cp .example.env .env' parancs futtatása, majd a megfelelő adatbázis adatok beállítása a '.env' fájlban</li>
     <li>A 'php artisan key:generate' futtatása</li>
-    <li>A 'php artisan migrate --seed' futtatása</li>
+    <li>A 'php artisan db:seed --class=CategorySeeder' futtatása</li>
+    <li>A 'php artisan db:seed --class=ProductSeeder' futtatása</li>
     <li>A 'php artisan storage:link' futtatása</li>
     <li>A 'php artisan serve' és 'npm run dev' segítségével elindul a projekt </li>
 </ol>
