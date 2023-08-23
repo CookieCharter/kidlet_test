@@ -8,5 +8,5 @@ A projekt beüzemeléséhez a következő lépések szükségesek:
     4. A 'php artisan key:generate' futtatása
     5. A 'php artisan migrate --seed' futtatása
     6. A 'php artisan storage:link' futtatása
-    7. A 'php artisan serve' segítségével elindul a projekt 
+    7. A 'php artisan serve' és 'npm run dev' segítségével elindul a projekt 
 Sajnos szerver nem állt rendelkezésemre, így annak menetét nem tudom leírni.
